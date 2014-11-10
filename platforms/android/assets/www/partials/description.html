@@ -1,0 +1,46 @@
+<div class="product" ng-controller="CartCtrl as cart">
+    <h3>
+        {{menu.getProduct().name}}
+        <em class="pull-right">{{menu.getProduct().price}}</em>
+    </h3>
+
+    <img class="img-responsive" ng-src="{{menu.getProduct().image}}"/>
+
+    <br>
+
+    <div class="mybutton">
+        <button  ng-click="cart.addToCart(menu.getProduct())">Добавить в корзину</button>
+    </div>
+
+    <br>
+
+    <div class="">
+        <section ng-controller="TabCtrl as panel">
+            <ul>
+                <li class="btn btn-default" ng-class="{active : panel.isSelected(1)}">
+                    <a href ng-click="panel.selectTab(1)">Описание</a>
+                </li>
+                <li class="btn btn-default" ng-class="{active : panel.isSelected(2)}">
+                    <a href ng-click="panel.selectTab(2)">Спецификация</a>
+                </li>
+                <li class="btn btn-default" ng-class="{active : panel.isSelected(3)}">
+                    <a href ng-click="panel.selectTab(3)">Отзывы</a>
+                </li>
+            </ul>
+            <div class="block">
+                <div  ng-show="panel.isSelected(1)">
+                    <h4>Описание</h4>
+                    <blockquote>{{menu.getProduct().description}}</blockquote>
+                </div>
+                <div  ng-show="panel.isSelected(2)">
+                    <h4>Спецификация</h4>
+                    <blockquote>{{menu.getProduct().specification}}</blockquote>
+                </div>
+                <div  ng-show="panel.isSelected(3)">
+                    <h4>Отзывы</h4>
+                    <blockquote>{{menu.getProduct().review}}</blockquote>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

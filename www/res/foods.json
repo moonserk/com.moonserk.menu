@@ -1,0 +1,57 @@
+[
+  {
+	"id" : 1,
+	"name" : "Баранина",
+	"price" : 200,
+	"category": 2,
+	"piece": 1,
+	"description" : "Баранина – мясо, которое в отличие от мяса других животных, не может содержать вредных веществ. Баранина не будет есть все подряд, чем обычно потчивают коров и свиней.",
+	"specification" : "Not Yet",
+	"review" : "Not Yet",
+	"image" : "img/foods/baranina.png"
+  },
+  {
+	"id" : 2,
+	"name" 	: "Гирос",
+	"price" 	: 250,
+	"category": 2,
+	"piece": 1,
+	"description" : "Гирос",
+	"specification" : "Not Yet",
+	"review" : "Not Yet",
+	"image" : "img/foods/giros.png"
+  },
+  {
+	"id" : 3,
+	"name" 	: "Пельмени",
+	"price" 	: 150,
+	"category": 2,
+	"piece": 1,
+	"description" : "Пельмени",
+	"specification" : "Not Yet",
+	"review" : "Not Yet",
+	"image" : "img/foods/pelmeni.png"
+  },
+  {
+	"id" : 4,
+	"name" 	: "Виски \"Jameson\"",
+	"price" 	: 50,
+	"category": 3,
+	"piece": 1,
+	"description" : "Jameson",
+	"specification" : "Not Yet",
+	"review" : "Not Yet",
+	"image" : "img/foods/jameson.png"
+  },
+  {
+	"id" : 5,
+	"name" 	: "Пицца",
+	"price" 	: 100,
+	"category": 2,
+	"piece": 1,
+	"description" : "Пицца",
+	"specification" : "Not Yet",
+	"review" : "Not Yet",
+	"image" : "img/foods/pizza.png"
+  }
+]

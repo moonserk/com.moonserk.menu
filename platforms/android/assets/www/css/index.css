@@ -1,0 +1,60 @@
+.overview {
+    text-decoration: none;
+}
+
+.img-responsive {
+    padding: 10px;
+}
+
+body {
+    padding-top: 50px;
+}
+
+.mybutton{
+    text-decoration: none;
+    padding: 0px;
+    margin: 0px;
+    text-align: center;
+}
+
+.mybutton1{
+    text-decoration: none;
+    padding: 10px;
+    margin: 0px;
+    text-align: center;
+
+}
+
+.mybutton2{
+    text-decoration: none;
+    padding: 10px;
+    margin: 0px;
+    text-align: center;
+}
+
+.block{
+    margin-left: 20px;
+    text-align: left;
+}
+
+.img-cart{
+    color : red;
+    font-size: 30px;
+    margin-top: 5px;
+}
+
+.category {
+    background-size :cover;
+    background-position:center;
+    margin : auto;
+    color : Black;
+    text-shadow: White 0 -2px;
+    padding: 50px;
+    max-width: 480px;
+    text-decoration: none;
+}
+
+.titles {
+    background-color: white;
+    color: black;
+}
