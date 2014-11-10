@@ -1,0 +1,20 @@
+    <div ng-controller="ViewCtrl as store">
+        <div ng-repeat="product in store.products">
+            <div ng-show="product.category === menu.category">
+                <a href="#/description">
+                    <h3 class="category" ng-click="menu.selectProduct(product)" ng-style="{
+                                                'background-image':'url({{product.image}})',
+                                                'background-size' :'cover',
+                                                'background-position':'center',
+                                                'margin' : 'auto',
+                                                'color' : 'Black',
+                                                'text-shadow': 'White 0 -2px',
+                                                'padding': '50px'}">
+                        <div class="titles">{{product.name}}
+                            <em class="pull-right">{{product.price}}</em>
+                        </div>
+                    </h3>
+                </a>
+            </div>
+        </div>
+    </div>

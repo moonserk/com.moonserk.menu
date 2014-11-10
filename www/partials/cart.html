@@ -1,0 +1,24 @@
+<div class="cart">
+    <div class="div-cart" ng-controller="CartCtrl as cart">
+        <div  ng-repeat="product in cart.cart">
+            <h3>
+                {{product.name}}
+                <em class="pull-right">
+                    <button class="mybutton2" ng-click="cart.add(product)">+</button>
+                    {{product.piece}}
+                    <button class="mybutton2" ng-click="cart.sub(product)">-</button>
+                    {{product.price * product.piece}}
+                    <button class="mybutton2" ng-click="cart.removeFromCart(product)">Удалить</button>
+                </em>
+            </h3>
+        </div>
+        <br>
+        <div>
+            <h3>
+                Итого :
+                <em class="pull-right">{{cart.getSum()}}</em>
+            </h3>
+            <button onclick="onLoad()" >Заказать</button>
+        </div>
+    </div>
+</div>
