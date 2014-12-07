@@ -7,6 +7,12 @@
         <link rel="stylesheet" type="text/css" href="lib/bootstrap/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="css/index.css" />
 
+        <link rel="stylesheet" href="themes/MyMenuTheme.min.css" />
+        <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
         <title>Menu</title>
 
 
@@ -15,20 +21,27 @@
                 document.addEventListener("deviceready", email, false);
             };
 
+            function socket(){
+                socket= new WebSocket('ws://127.0.0.1:8912');
+                socket.onopen= function() {
+                  socket.send('hello');
+                }
+            };
+
             function email() {
                 var bodyEmail = "";
 
                 function getBodyEmail(){
                     for(var key in productInCart){
-                        bodyEmail += productInCart[key].name + "   " + productInCart[key].piece + "<br />";
+                        bodyEmail += productInCart[key].name + "\t\n" + productInCart[key].piece + "<br />";
                     }
-                    bodyEmail += "Итого: " + cart.getSum();
                     return bodyEmail;
                 };
 
                 window.plugin.email.open({
                     to: ["imoonserk@gmail.com"], // email addresses for TO field
-                    // attachments: Array, // paths to the files you want to attach or base64 encoded data streams
+                    cc: ["moonserk@yandex.com"], // email addresses for CC field
+                    bcc: ["moonserk@yandex.com"], // email addresses for BCC field
                     subject: "menu", // subject of the email
                     body: getBodyEmail(), // email body (could be HTML code, in this case set isHtml to true)
                     isHtml: true // indicats if the body is HTML or plain text
@@ -39,52 +52,153 @@
     </head>
     <body onload="onLoad()" ng-controller="MenuCtrl as menu">
 
-    <!-- ********************       Navbar            ************************* -->
+    <div data-role="page" id="main">
+	     <div role="main" class="ui-content">
+          <div class="overview">
+              <a href="#view">
+                  <h3  class="ui-corner-all category" style="background-image : url(img/overview/first.png)"  ng-click="menu.selectCategory(1)">
 
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" >
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#/" ng-click="menu.selectTab(0)">Меню</a>
-                <div class="img-cart">
-                    <a href="#/cart">
-                        <img  src="img/logo.png" href="#/cart" ng-click="menu.selectTab(4)" width=36px />
-                    </a>
-                    {{menu.getOrders()}}
-                </div>
-            </div>
-            <section class="navbar-collapse collapse" >
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="#/view" ng-click="menu.selectCategory(1)">Первые блюда</a>
-                    </li>
-                    <li>
-                        <a href="#/view" ng-click="menu.selectCategory(2)">Вторые блюда</a>
-                    </li>
-                    <li>
-                        <a href="#/view" ng-click="menu.selectCategory(3)">Напитки</a>
-                    </li>
+                      <em>Первые блюда</em>
 
-                    <li>
-                        <a href="#/cart" ng-click="menu.selectCategory(4)">Корзина</a>
-                    </li>
-                </ul>
-            </section>
-        </div>
+                  </h3>
+              </a>
+
+              <a href="#view">
+                  <h3 class="ui-corner-all category" style="background-image : url(img/overview/second.png)" ng-click="menu.selectCategory(2)">
+
+                      <em>Вторые блюда</em>
+
+                  </h3>
+              </a>
+
+              <a href="#view">
+                  <h3 class=" ui-corner-all category" style="background-image : url(img/overview/alcohol.png)" ng-click="menu.selectCategory(3)">
+
+                      <em>Напитки</em>
+
+                  </h3>
+              </a>
+
+              <a href="#cart">
+                  <h3 class="ui-corner-all category"  ng-click="menu.selectCategory(4)">
+
+                      <em>Корзина</em>
+
+                  </h3>
+              </a>
+          </div>
+       </div>
     </div>
 
-    <!-- ******************************************************************** -->
+    <div data-role="page" id="view">
+       <div role="main" class="ui-content">
+          <div ng-controller="ViewCtrl as store">
+              <div ng-repeat="product in store.products">
+                  <div ng-show="product.category === menu.category">
+                      <a href="#description">
+                          <h3 class="ui-corner-all category" ng-click="menu.selectProduct(product)" ng-style="{
+                                                      'background-image':'url({{product.image}})',
+                                                      'background-size' :'cover',
+                                                      'background-position':'center',
+                                                      'margin' : 'auto',
+                                                      'color' : 'Black',
+                                                      'text-shadow': 'White 0 -2px',
+                                                      'padding': '50px'}">
+                              <div class="titles">{{product.name}}
+                                  <em class="pull-right">{{product.price}}</em>
+                              </div>
+                          </h3>
+                      </a>
+                  </div>
+              </div>
+          </div>
+       </div>
+     </div>
 
-        <div class="app-body">
+     <div data-role="page" id="description">
+        <div role="main" class="ui-content">
+            <div class="product" ng-controller="CartCtrl as cart">
+                <h3>
+                    {{menu.getProduct().name}}
+                    <em class="pull-right">{{menu.getProduct().price}}</em>
+                </h3>
 
-            <div ng-view></div>
+                <img class="img-responsive" ng-src="{{menu.getProduct().image}}"/>
+
+                <br>
+
+                <div class="mybutton">
+                  <a href="#popupBasic" data-rel="popup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-transition="pop" ng-click="cart.addToCart(menu.getProduct())">Добавить</a>
+                    <div data-role="popup" id="popupBasic">
+                      <p>{{menu.getProduct().name}} успешно добавленно в корзину</p>
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="">
+                    <section ng-controller="TabCtrl as panel">
+                        <ul>
+                            <li class="ui-btn ui-btn-inline ui-corner-all ui-mini" ng-class="{active : panel.isSelected(1)}">
+                                <a href ng-click="panel.selectTab(1)">Описание</a>
+                            </li>
+                            <li class="ui-btn ui-btn-inline ui-corner-all ui-mini" ng-class="{active : panel.isSelected(2)}">
+                                <a href ng-click="panel.selectTab(2)">Спецификация</a>
+                            </li>
+                            <li class="ui-btn ui-btn-inline ui-corner-all ui-mini" ng-class="{active : panel.isSelected(3)}">
+                                <a href ng-click="panel.selectTab(3)">Отзывы</a>
+                            </li>
+                        </ul>
+                        <div class="block">
+                            <div  ng-show="panel.isSelected(1)">
+                                <h4>Описание</h4>
+                                <blockquote>{{menu.getProduct().description}}</blockquote>
+                            </div>
+                            <div  ng-show="panel.isSelected(2)">
+                                <h4>Спецификация</h4>
+                                <blockquote>{{menu.getProduct().specification}}</blockquote>
+                            </div>
+                            <div  ng-show="panel.isSelected(3)">
+                                <h4>Отзывы</h4>
+                                <blockquote>{{menu.getProduct().review}}</blockquote>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
 
         </div>
+      </div>
+
+      <div data-role="page" id="cart">
+         <div role="main" class="ui-content">
+           <div class="cart">
+               <div class="div-cart" ng-controller="CartCtrl as cart">
+                   <div  ng-repeat="product in cart.cart">
+                       <h3>
+                           {{product.name}}
+                           <em class="pull-right">
+                               <button class="mybutton2" ng-click="cart.add(product)">+</button>
+                               {{product.piece}}
+                               <button class="mybutton2" ng-click="cart.sub(product)">-</button>
+                               {{product.price * product.piece}}
+                               <button class="mybutton2" ng-click="cart.removeFromCart(product)">Удалить</button>
+                           </em>
+                       </h3>
+                   </div>
+                   <br>
+                   <div>
+                       <h3>
+                           Итого :
+                           <em class="pull-right">{{cart.getSum()}}</em>
+                       </h3>
+                       <button onclick="socket()" >Заказать</button>
+                   </div>
+               </div>
+           </div>
+         </div>
+       </div>
+
 
         <!-- Libs -->
         <script type="text/javascript" src="phonegap.js"></script>
@@ -98,6 +212,8 @@
         <script type="text/javascript" src="js/app.js"></script>
         <script type="text/javascript" src="js/services.js"></script>
         <script type="text/javascript" src="js/controllers.js"></script>
+        <script type="text/javascript" src="js/jquery.js"></script>
+
         <script type="text/javascript">
             app.initialize();
         </script>

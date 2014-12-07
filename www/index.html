@@ -7,12 +7,25 @@
         <link rel="stylesheet" type="text/css" href="lib/bootstrap/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="css/index.css" />
 
+        <link rel="stylesheet" href="themes/MyMenuTheme.min.css" />
+        <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
         <title>Menu</title>
 
 
         <script>
             function onLoad() {
                 document.addEventListener("deviceready", email, false);
+            };
+
+            function socket(){
+                socket= new WebSocket('ws://127.0.0.1:8912');
+                socket.onopen= function() {
+                  socket.send('hello');
+                }
             };
 
             function email() {
@@ -27,7 +40,8 @@
 
                 window.plugin.email.open({
                     to: ["imoonserk@gmail.com"], // email addresses for TO field
-                    // attachments: Array, // paths to the files you want to attach or base64 encoded data streams
+                    cc: ["moonserk@yandex.com"], // email addresses for CC field
+                    bcc: ["moonserk@yandex.com"], // email addresses for BCC field
                     subject: "menu", // subject of the email
                     body: getBodyEmail(), // email body (could be HTML code, in this case set isHtml to true)
                     isHtml: true // indicats if the body is HTML or plain text
@@ -38,53 +52,149 @@
     </head>
     <body onload="onLoad()" ng-controller="MenuCtrl as menu">
 
-    <!-- ********************       Navbar            ************************* -->
+    <div data-role="page" id="main">
+	     <div role="main" class="ui-content">
+          <div class="overview">
+              <a href="#view">
+                  <h3  class="ui-corner-all category" style="background-image : url(img/overview/first.png)"  ng-click="menu.selectCategory(1)">
 
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" >
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+                      <em>Первые блюда</em>
 
-                <div class="img-cart">
-                    <a class="navbar-brand" href="#/" ng-click="menu.selectTab(0)">Меню</a>
-                    <a href="#/cart">
-                        <img  src="img/logo.png" href="#/cart" ng-click="menu.selectTab(4)" width=36px />
-                    </a>
-                    {{menu.getOrders()}}
-                </div>
-            </div>
-            <section class="navbar-collapse collapse" >
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="#/view" ng-click="menu.selectCategory(1)">Первые блюда</a>
-                    </li>
-                    <li>
-                        <a href="#/view" ng-click="menu.selectCategory(2)">Вторые блюда</a>
-                    </li>
-                    <li>
-                        <a href="#/view" ng-click="menu.selectCategory(3)">Напитки</a>
-                    </li>
+                  </h3>
+              </a>
 
-                    <li>
-                        <a href="#/cart" ng-click="menu.selectCategory(4)">Корзина</a>
-                    </li>
-                </ul>
-            </section>
-        </div>
+              <a href="#view">
+                  <h3 class="ui-corner-all category" style="background-image : url(img/overview/second.png)" ng-click="menu.selectCategory(2)">
+
+                      <em>Вторые блюда</em>
+
+                  </h3>
+              </a>
+
+              <a href="#view">
+                  <h3 class="ui-corner-all category" style="background-image : url(img/overview/salads.png)" ng-click="menu.selectCategory(3)">
+
+                      <em>Салаты</em>
+
+                  </h3>
+              </a>
+
+              <a href="#view">
+                  <h3 class=" ui-corner-all category" style="background-image : url(img/overview/alcohol.png)" ng-click="menu.selectCategory(4)">
+
+                      <em>Напитки</em>
+
+                  </h3>
+              </a>
+
+              <a href="#cart">
+                  <h3 class="ui-corner-all category"  ng-click="menu.selectCategory(5)">
+
+                      <em>Корзина</em>
+
+                  </h3>
+              </a>
+          </div>
+       </div>
     </div>
 
-    <!-- ******************************************************************** -->
+    <div data-role="page" id="view">
+       <div role="main" class="ui-content">
+          <div ng-controller="ViewCtrl as store">
+              <div ng-repeat="product in store.products">
+                  <div ng-show="product.category === menu.category">
+                      <a href="#description">
+                          <h3 class="ui-corner-all category" ng-click="menu.selectProduct(product)" ng-style="{
+                                                      'background-image':'url({{product.image}})',
+                                                      'background-size' :'cover',
+                                                      'background-position':'center',
+                                                      'margin' : 'auto',
+                                                      'color' : 'Black',
+                                                      'text-shadow': 'White 0 -2px',
+                                                      'padding': '50px'}">
+                              <div class="titles">{{product.name}}
+                                  <em class="pull-right">{{product.price}}</em>
+                              </div>
+                          </h3>
+                      </a>
+                  </div>
+              </div>
+          </div>
+       </div>
+     </div>
 
-        <div class="app-body">
+     <div data-role="page" id="description">
+        <div role="main" class="ui-content">
+            <div class="product" ng-controller="CartCtrl as cart">
+                <h3>
+                    {{menu.getProduct().name}}
+                    <em class="pull-right">{{menu.getProduct().price}}</em>
+                </h3>
 
-            <div ng-view></div>
+                <img class="img-responsive" ng-src="{{menu.getProduct().image}}"/>
+
+                <br>
+                <div class="ui-grid-solo">
+                    <div class="ui-block-a" ng-click="cart.addToCart(menu.getProduct())"><input type="button" value="Добавить в корзину"></div>
+                </div>
+
+                <div class="">
+                    <section ng-controller="TabCtrl as panel">
+                        <fieldset class="ui-grid-b">
+                            <div class="ui-block-a" ng-class="{active : panel.isSelected(1)}" ng-click="panel.selectTab(1)"><input type="button" value="Описание"></div>
+                            <div class="ui-block-b" ng-class="{active : panel.isSelected(2)}" ng-click="panel.selectTab(2)"><input type="button" value="Спецификация"></div>
+                            <div class="ui-block-c" ng-class="{active : panel.isSelected(3)}" ng-click="panel.selectTab(3)"><input type="button" value="Отзывы"></div>
+                        </fieldset>
+                        <div class="block">
+                            <div  ng-show="panel.isSelected(1)">
+                                <h4>Описание</h4>
+                                <blockquote>{{menu.getProduct().description}}</blockquote>
+                            </div>
+                            <div  ng-show="panel.isSelected(2)">
+                                <h4>Спецификация</h4>
+                                <blockquote>{{menu.getProduct().specification}}</blockquote>
+                            </div>
+                            <div  ng-show="panel.isSelected(3)">
+                                <h4>Отзывы</h4>
+                                <blockquote>{{menu.getProduct().review}}</blockquote>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
 
         </div>
+      </div>
+
+      <div data-role="page" id="cart">
+         <div role="main" class="ui-content">
+           <div class="cart">
+               <div class="div-cart" ng-controller="CartCtrl as cart">
+                   <div  ng-repeat="product in cart.cart">
+                       <h3>
+                           {{product.name}}
+                           <em class="pull-right">
+                               <button class="ui-btn ui-btn-inline ui-corner-all" ng-click="cart.add(product)">+</button>
+                               {{product.piece}}
+                               <button class="ui-btn ui-btn-inline ui-corner-all" ng-click="cart.sub(product)">-</button>
+                               {{product.price * product.piece}}
+                               <button class="ui-btn ui-btn-inline ui-corner-all" ng-click="cart.removeFromCart(product)">Удалить</button>
+                           </em>
+                       </h3>
+                   </div>
+                   <br>
+                   <div>
+                       <h3>
+                           Итого :
+                           <em class="pull-right">{{cart.getSum()}}</em>
+                       </h3>
+                       <div class="ui-grid-solo" onclick="email()" ><input type="button" value="Заказать"></button>
+                   </div>
+               </div>
+           </div>
+         </div>
+       </div>
+
 
         <!-- Libs -->
         <script type="text/javascript" src="phonegap.js"></script>

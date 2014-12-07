@@ -36,13 +36,14 @@ angular.module('menu.controllers', [])
         this.addToCart = function(food){
             for(var key in productInCart){
                 if(productInCart[key].id === food.id){
-                    alert("Уже было добавленно");
-                    return;
+                    //alert("Уже было добавленно");
+                    return "Уже было добавленно";
                 }
             }
             productInCart.push(food);
             this.orders++;
-            alert(food.name + " " + "добавленно");
+            //alert(food.name + " " + "добавленно");
+            return food.name;
         };
 
         this.removeFromCart = function(food){
@@ -89,5 +90,3 @@ angular.module('menu.controllers', [])
                 return this.product;
             };
     }]);
-
-
