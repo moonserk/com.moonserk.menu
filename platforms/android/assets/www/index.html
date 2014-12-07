@@ -72,7 +72,15 @@
               </a>
 
               <a href="#view">
-                  <h3 class=" ui-corner-all category" style="background-image : url(img/overview/alcohol.png)" ng-click="menu.selectCategory(3)">
+                  <h3 class="ui-corner-all category" style="background-image : url(img/overview/salads.png)" ng-click="menu.selectCategory(3)">
+
+                      <em>Салаты</em>
+
+                  </h3>
+              </a>
+
+              <a href="#view">
+                  <h3 class=" ui-corner-all category" style="background-image : url(img/overview/alcohol.png)" ng-click="menu.selectCategory(4)">
 
                       <em>Напитки</em>
 
@@ -80,7 +88,7 @@
               </a>
 
               <a href="#cart">
-                  <h3 class="ui-corner-all category"  ng-click="menu.selectCategory(4)">
+                  <h3 class="ui-corner-all category"  ng-click="menu.selectCategory(5)">
 
                       <em>Корзина</em>
 
@@ -126,29 +134,22 @@
                 <img class="img-responsive" ng-src="{{menu.getProduct().image}}"/>
 
                 <br>
+                <div class="ui-grid-solo">
+                  <!--<a href="#overlay" data-rel="popup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline">Overlay theme A</a>-->
 
-                <div class="mybutton">
-                  <a href="#popupBasic" data-rel="popup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-transition="pop" ng-click="cart.addToCart(menu.getProduct())">Добавить</a>
-                    <div data-role="popup" id="popupBasic">
-                      <p>{{menu.getProduct().name}} успешно добавленно в корзину</p>
+                    <div class="ui-block-a" href="#overlay" data-rel="popup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" ng-click="cart.addToCart(menu.getProduct())"><input type="button" value="Добавить в корзину"></div>
+                    <div id="overlay" data-role="popup" data-overlay-theme="a" class="ui-content">
+                      <p>I have a <code>data-overlay-theme="a"</code> set on me</p>
                     </div>
                 </div>
 
-                <br>
-
                 <div class="">
                     <section ng-controller="TabCtrl as panel">
-                        <ul>
-                            <li class="ui-btn ui-btn-inline ui-corner-all ui-mini" ng-class="{active : panel.isSelected(1)}">
-                                <a href ng-click="panel.selectTab(1)">Описание</a>
-                            </li>
-                            <li class="ui-btn ui-btn-inline ui-corner-all ui-mini" ng-class="{active : panel.isSelected(2)}">
-                                <a href ng-click="panel.selectTab(2)">Спецификация</a>
-                            </li>
-                            <li class="ui-btn ui-btn-inline ui-corner-all ui-mini" ng-class="{active : panel.isSelected(3)}">
-                                <a href ng-click="panel.selectTab(3)">Отзывы</a>
-                            </li>
-                        </ul>
+                        <fieldset class="ui-grid-b">
+                            <div class="ui-block-a" ng-class="{active : panel.isSelected(1)}" ng-click="panel.selectTab(1)"><input type="button" value="Описание"></div>
+                            <div class="ui-block-b" ng-class="{active : panel.isSelected(2)}" ng-click="panel.selectTab(2)"><input type="button" value="Спецификация"></div>
+                            <div class="ui-block-c" ng-class="{active : panel.isSelected(3)}" ng-click="panel.selectTab(3)"><input type="button" value="Отзывы"></div>
+                        </fieldset>
                         <div class="block">
                             <div  ng-show="panel.isSelected(1)">
                                 <h4>Описание</h4>
@@ -178,11 +179,11 @@
                        <h3>
                            {{product.name}}
                            <em class="pull-right">
-                               <button class="mybutton2" ng-click="cart.add(product)">+</button>
+                               <button class="ui-btn ui-btn-inline ui-corner-all" ng-click="cart.add(product)">+</button>
                                {{product.piece}}
-                               <button class="mybutton2" ng-click="cart.sub(product)">-</button>
+                               <button class="ui-btn ui-btn-inline ui-corner-all" ng-click="cart.sub(product)">-</button>
                                {{product.price * product.piece}}
-                               <button class="mybutton2" ng-click="cart.removeFromCart(product)">Удалить</button>
+                               <button class="ui-btn ui-btn-inline ui-corner-all" ng-click="cart.removeFromCart(product)">Удалить</button>
                            </em>
                        </h3>
                    </div>
@@ -192,7 +193,7 @@
                            Итого :
                            <em class="pull-right">{{cart.getSum()}}</em>
                        </h3>
-                       <button onclick="socket()" >Заказать</button>
+                       <div class="ui-grid-solo" onclick="email()" ><input type="button" value="Заказать"></button>
                    </div>
                </div>
            </div>

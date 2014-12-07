@@ -134,8 +134,14 @@
                 <img class="img-responsive" ng-src="{{menu.getProduct().image}}"/>
 
                 <br>
-                <div class="ui-grid-solo">
-                    <div class="ui-block-a" ng-click="cart.addToCart(menu.getProduct())"><input type="button" value="Добавить в корзину"></div>
+
+                <div>
+                  <a href="#overlay" data-rel="popup" class="ui-grid-solo ui-btn ui-corner-all" ng-click="cart.addToCart(menu.getProduct())">Добавить в корзину</a>
+
+                    <!-- <div class="ui-block-a" href="#overlay" data-rel="popup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" ng-click="cart.addToCart(menu.getProduct())"><input type="button" value="Добавить в корзину"></div> -->
+                    <div id="overlay" data-role="popup" data-overlay-theme="a" class="ui-content">
+                      <p>{{menu.getProduct().name}} успешно добавлено в корзину</p>
+                    </div>
                 </div>
 
                 <div class="">

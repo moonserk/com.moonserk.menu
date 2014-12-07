@@ -36,7 +36,7 @@
 	"id" : 4,
 	"name" 	: "Виски \"Jameson\"",
 	"price" 	: 50,
-	"category": 3,
+	"category": 4,
 	"piece": 1,
 	"description" : "Jameson",
 	"specification" : "Not Yet",
@@ -53,5 +53,49 @@
 	"specification" : "Not Yet",
 	"review" : "Not Yet",
 	"image" : "img/foods/pizza.png"
+  },
+  {
+  "id" : 6,
+  "name" 	: "Кола",
+  "price" 	: 10,
+  "category": 4,
+  "piece": 1,
+  "description" : "Кока-кола",
+  "specification" : "Not Yet",
+  "review" : "Not Yet",
+  "image" : "img/foods/cola.png"
+  },
+  {
+  "id" : 7,
+  "name" 	: "Бифштекс",
+  "price" 	: 200,
+  "category": 2,
+  "piece": 1,
+  "description" : "Бифштекс",
+  "specification" : "Not Yet",
+  "review" : "Not Yet",
+  "image" : "img/foods/beef.png"
+  },
+  {
+  "id" : 8,
+  "name" 	: "Греческий салат",
+  "price" 	: 100,
+  "category": 3,
+  "piece": 1,
+  "description" : "греческий салат",
+  "specification" : "Not Yet",
+  "review" : "Not Yet",
+  "image" : "img/foods/greeksalad.png"
+  },
+  {
+  "id" : 9,
+  "name" 	: "Салат с тунцом",
+  "price" 	: 100,
+  "category": 3,
+  "piece": 1,
+  "description" : "Салат с тунцом",
+  "specification" : "Not Yet",
+  "review" : "Not Yet",
+  "image" : "img/foods/tunasalad.png"
   }
 ]
