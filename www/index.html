@@ -21,13 +21,6 @@
                 document.addEventListener("deviceready", email, false);
             };
 
-            function socket(){
-                socket= new WebSocket('ws://127.0.0.1:8912');
-                socket.onopen= function() {
-                  socket.send('hello');
-                }
-            };
-
             function email() {
                 var bodyEmail = "";
 
@@ -50,15 +43,27 @@
         </script>
 
     </head>
+
     <body onload="onLoad()" ng-controller="MenuCtrl as menu">
 
     <div data-role="page" id="main">
+
+      <div class="navbar1" data-role="navbar">
+        <ul>
+          <li><a href="#main" class="ui-btn-active ui-state-persist" data-icon="grid">Меню</a></li>
+          <li><a href="#cart" data-icon="star">Корзина {{menu.getOrders()}}</a></li>
+        </ul>
+      </div><!-- /navbar -->
+      <br>
+      <br>
+      <br>
+
 	     <div role="main" class="ui-content">
           <div class="overview">
               <a href="#view">
                   <h3  class="ui-corner-all category" style="background-image : url(img/overview/first.png)"  ng-click="menu.selectCategory(1)">
 
-                      <em>Первые блюда</em>
+                      Первые блюда
 
                   </h3>
               </a>
@@ -66,7 +71,7 @@
               <a href="#view">
                   <h3 class="ui-corner-all category" style="background-image : url(img/overview/second.png)" ng-click="menu.selectCategory(2)">
 
-                      <em>Вторые блюда</em>
+                    Вторые блюда
 
                   </h3>
               </a>
@@ -74,7 +79,7 @@
               <a href="#view">
                   <h3 class="ui-corner-all category" style="background-image : url(img/overview/salads.png)" ng-click="menu.selectCategory(3)">
 
-                      <em>Салаты</em>
+                      Салаты
 
                   </h3>
               </a>
@@ -82,7 +87,7 @@
               <a href="#view">
                   <h3 class=" ui-corner-all category" style="background-image : url(img/overview/alcohol.png)" ng-click="menu.selectCategory(4)">
 
-                      <em>Напитки</em>
+                      Напитки
 
                   </h3>
               </a>
@@ -90,7 +95,7 @@
               <a href="#cart">
                   <h3 class="ui-corner-all category"  ng-click="menu.selectCategory(5)">
 
-                      <em>Корзина</em>
+                    Корзина
 
                   </h3>
               </a>
@@ -99,6 +104,17 @@
     </div>
 
     <div data-role="page" id="view">
+
+<div class="navbar1" data-role="navbar">
+  <ul>
+    <li><a href="#main" data-icon="grid">Меню</a></li>
+    <li><a href="#cart" data-icon="star">Корзина {{menu.getOrders()}}</a></li>
+  </ul>
+</div><!-- /navbar -->
+<br>
+<br>
+<br>
+
        <div role="main" class="ui-content">
           <div ng-controller="ViewCtrl as store">
               <div ng-repeat="product in store.products">
@@ -124,6 +140,17 @@
      </div>
 
      <div data-role="page" id="description">
+
+<div class="navbar1" data-role="navbar">
+  <ul>
+    <li><a href="#main" data-icon="grid">Меню</a></li>
+    <li><a href="#cart" data-icon="star">Корзина {{menu.getOrders()}}</a></li>
+  </ul>
+</div><!-- /navbar -->
+<br>
+<br>
+<br>
+
         <div role="main" class="ui-content">
             <div class="product" ng-controller="CartCtrl as cart">
                 <h3>
@@ -147,8 +174,8 @@
                 <div class="">
                     <section ng-controller="TabCtrl as panel">
                         <fieldset class="ui-grid-b">
-                            <div class="ui-block-a" ng-class="{active : panel.isSelected(1)}" ng-click="panel.selectTab(1)"><input type="button" value="Описание"></div>
-                            <div class="ui-block-b" ng-class="{active : panel.isSelected(2)}" ng-click="panel.selectTab(2)"><input type="button" value="Спецификация"></div>
+                            <div class="ui-block-a" ng-class="{active : panel.isSelected(1)}" ng-click="panel.selectTab(1)"><input type="button" value="Обзор"></div>
+                            <div class="ui-block-b" ng-class="{active : panel.isSelected(2)}" ng-click="panel.selectTab(2)"><input type="button" value="Состав"></div>
                             <div class="ui-block-c" ng-class="{active : panel.isSelected(3)}" ng-click="panel.selectTab(3)"><input type="button" value="Отзывы"></div>
                         </fieldset>
                         <div class="block">
@@ -173,20 +200,34 @@
       </div>
 
       <div data-role="page" id="cart">
+
+<div class="navbar1" data-role="navbar">
+  <ul>
+    <li><a href="#main" data-icon="grid">Меню</a></li>
+    <li><a href="#cart" class="ui-btn-active ui-state-persist" data-icon="star">Корзина {{menu.getOrders()}}</a></li>
+  </ul>
+</div><!-- /navbar -->
+<br>
+<br>
+<br>
+
          <div role="main" class="ui-content">
            <div class="cart">
                <div class="div-cart" ng-controller="CartCtrl as cart">
                    <div  ng-repeat="product in cart.cart">
+                     <div>
                        <h3>
                            {{product.name}}
-                           <em class="pull-right">
+                           <em class="pull-right">{{product.price * product.piece}}</em>
+                      </div>
+                      <br>
+                      <div class="btn-cart">
                                <button class="ui-btn ui-btn-inline ui-corner-all" ng-click="cart.add(product)">+</button>
-                               {{product.piece}}
+                               <button class="ui-btn ui-btn-inline ui-corner-all" >{{product.piece}}</button>
                                <button class="ui-btn ui-btn-inline ui-corner-all" ng-click="cart.sub(product)">-</button>
-                               {{product.price * product.piece}}
                                <button class="ui-btn ui-btn-inline ui-corner-all" ng-click="cart.removeFromCart(product)">Удалить</button>
-                           </em>
                        </h3>
+                     </div>
                    </div>
                    <br>
                    <div>
@@ -194,8 +235,8 @@
                            Итого :
                            <em class="pull-right">{{cart.getSum()}}</em>
                        </h3>
-                       <div class="ui-grid-solo" onclick="email()" ><input type="button" value="Заказать"></button>
                    </div>
+                   <div class="ui-grid-solo" onclick="email()" ><input type="button" value="Заказать"></div>
                </div>
            </div>
          </div>

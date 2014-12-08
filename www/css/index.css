@@ -58,3 +58,13 @@ body {
     background-color: white;
     color: black;
 }
+.navbar1{
+    width: 150%;
+    display: block;
+    position: fixed;
+    overflow: hidden;
+    margin: auto;
+}
+.btn-cart{
+
+}

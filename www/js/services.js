@@ -5,7 +5,6 @@ angular.module('menu.services', [])
                 impl = function () {
                     queue.push([].slice.call(arguments));
                 };
-
             document.addEventListener('deviceready', function () {
                 queue.forEach(function (args) {
                     fn.apply(this, args);
